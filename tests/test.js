@@ -5,8 +5,6 @@ var assert=require('assert');
 assert.equal(true, true);
 var EchoTest=require('./echo.js');
 
-var ws=require('ws');
-
 
 var series=require("async").series(
 		[
