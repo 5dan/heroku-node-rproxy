@@ -5,6 +5,7 @@ var assert=require('assert');
 assert.equal(true, true);
 var EchoTest=require('./echo.js');
 
+var ws=require('ws');
 
 var series=require("async").series(
 		[
@@ -25,24 +26,54 @@ function(callback){
 	});
 },
 function(callback){
-	console.log('Running bridge with custom http server');
+	
+	
+	var port=9003
+	console.log('Running bridge with custom http server: '+port);
 	var http=require('http');
 	var server = http.createServer(function(request, response){
-		 response.end('Http Server: ' + request.url);
+		response.end('Http Server: ' + request.url);
 	});
-	
+
 	var Bridge= require('node-rproxy').Bridge;
 	new Bridge({server:server},function(){
 		console.log('hello world server: http+ws');	
 		server.close();
 		callback(null);
 	}, function(){
-		
+
 		assert.fail('should not have connected');
-		
+
 	});
-	server.listen(9003);
 	
+	server.listen(port, function(){
+
+		console.log('listening on: '+port);
+
+		http.get("http://localhost:"+port, function(res) {
+			console.log("success: " + res.statusCode);
+		}).on('error', function(e) {
+			assert.fail("Got error: " + e.message)
+		});
+		
+
+		(new ws('ws://localhost:'+port)).client.on('open', function(){
+			
+			console.log('connected client');
+			
+		}).on('close', function(code, message){
+
+			console.log('close client');
+			
+		}).on('error',function(error){
+			console.log('error client');
+		});
+		
+
+
+
+	});
+
 }
 
 ],
