@@ -25,7 +25,7 @@ function(callback){
 	});
 },
 function(callback){
-	console.log('');
+	console.log('Running bridge with custom http server');
 	var http=require('http');
 	var server = http.createServer(function(request, response){
 		 response.end('Http Server: ' + request.url);
