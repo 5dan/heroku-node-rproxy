@@ -202,6 +202,22 @@ function(callback){
 		callback(null);
 
 	});
+},
+function(callback){
+	
+	var http=require('http');
+	var server = http.createServer(function(request, response){
+		 response.end('Http Server: ' + request.url);
+	});
+	
+	var Bridge= require('node-rproxy').Bridge;
+	new Bridge({server:server},function(){
+		console.log('hello world server');	
+		server.close();
+		callback(null);
+	});
+	server.listen(9003);
+	
 }
 
 ],
@@ -210,6 +226,7 @@ function(err, results) {
 				assert.fail(err.message||err);
 			}
 			console.log('tests completed successfully');
+			process.exit(0);
 		});
 
 
