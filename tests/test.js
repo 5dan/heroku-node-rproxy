@@ -9,7 +9,7 @@ var ws=require('ws');
 
 var testNumber=0;
 
-function EchoTest(BridgeProxy, AutoConnectProxy, config, callbackFn){
+function EchoTest(AutoConnectProxy, BridgeProxy, config, callbackFn){
 
 	var cleanup=function(){}; //reassigned
 	
