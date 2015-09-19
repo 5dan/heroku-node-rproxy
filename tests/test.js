@@ -57,7 +57,7 @@ function(callback){
 		});
 		
 
-		(new ws('ws://localhost:'+port)).client.on('open', function(){
+		(new ws('ws://localhost:'+port)).on('open', function(){
 			
 			console.log('connected client');
 			
