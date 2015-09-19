@@ -21,6 +21,9 @@
     "url": "https://github.com/nickolanack/heroku-node-rproxy/issues"
   },
   "dependencies":{
-    "node-rproxy":"git://github.com/nickolanack/node-rproxy.git#master"
+    "node-rproxy":"git://github.com/nickolanack/node-rproxy.git#master",
+     "ws":"latest",
+    "atob":"latest",
+    "async":"latest"
   }
 }
