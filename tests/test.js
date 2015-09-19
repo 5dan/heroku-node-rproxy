@@ -38,7 +38,7 @@ function EchoTest(BridgeProxy, AutoConnectProxy, config, callbackFn){
 
 
 //		a bridge server. pairs clients with autoconnect proxy connections.
-		var bridge=new require('node-rproxy').Bridge({
+		var bridge=new BridgeProxy({
 			port:config.bridge,
 			basicauth:basicauth
 		}, function(){
@@ -53,7 +53,8 @@ function EchoTest(BridgeProxy, AutoConnectProxy, config, callbackFn){
 			if(basicauth.length){
 				basicauth=basicauth+'@';
 			}
-			var autoconnect=new require('node-rproxy').AutoConnect({source:'ws://'+basicauth+'localhost:'+config.bridge, destination:'ws://localhost:'+config.echo}).on('error',function(err){
+			
+			var autoconnect=new AutoConnectProxy({source:'ws://'+basicauth+'localhost:'+config.bridge, destination:'ws://localhost:'+config.echo}).on('error',function(err){
 				callback(new Error('test '+test+' autoconnectproxy error'));
 			});
 
