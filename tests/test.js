@@ -188,37 +188,8 @@ function logAutoconnectProxy(acp){
 
 var series=require("async").series(
 		[
-		 function(callback){
-			 //test direct load
-			 EchoTest(require('../bridgeproxy.js'), require('../autoconnectproxy.js'), {echo:9001, bridge:9002, count:20, eachClient:function(client, i){
-				 client.on('message',function(m){
-					 console.log('test 0, client '+i+' success');
-				 });
-			 }}, function(err, message){
 
-				 if(err){	
-					 assert.fail(err);
-				 }
 
-				 callback(null);
-				 
-			 });
-		 },
-		 function(callback){
-			 // test same ports - cleanup must complete
-			 EchoTest(require('../bridgeproxy.js'), require('../autoconnectproxy.js'), {echo:9001, bridge:9002, count:5, eachClient:function(client, i){
-				 client.on('message',function(m){
-					 console.log('test 0, client '+i+' success');
-				 });
-			 }}, function(err, message){
-
-				 if(err){	
-					 assert.fail(err);
-				 }
-				 callback(null);
-				 
-			 });
-		 },
 		 function(callback){
 			 //test using index, this should be the same as require('node-rproxy')
 			 EchoTest(require('node-rproxy').AutoConnect, require('node-rproxy').Bridge, {echo:9003, bridge:9004, count:5, eachClient:function(client, i){
