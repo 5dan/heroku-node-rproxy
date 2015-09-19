@@ -212,9 +212,13 @@ function(callback){
 	
 	var Bridge= require('node-rproxy').Bridge;
 	new Bridge({server:server},function(){
-		console.log('hello world server');	
+		console.log('hello world server: http+ws');	
 		server.close();
 		callback(null);
+	}, function(){
+		
+		assert.fail('should not have connected');
+		
 	});
 	server.listen(9003);
 	
