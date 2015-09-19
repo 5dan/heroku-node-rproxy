@@ -2,13 +2,17 @@
  * 
  */
 
+var rproxy=require('node-rproxy');
 
+var AutoConnectProxy=rproxy.AutoConnect;
+var BridgeProxy=rproxy.Bridge;
+var EchoServer=rproxy.EchoServer;
 
 var ws=require('ws');
 
 var testNumber=0;
 
-function EchoTest(AutoConnectProxy, BridgeProxy,  config, callbackFn){
+function EchoTest(  config, callbackFn){
 
 	var cleanup=function(){}; //reassigned
 	
@@ -23,7 +27,7 @@ function EchoTest(AutoConnectProxy, BridgeProxy,  config, callbackFn){
 	testNumber++;
 	console.log('Running Test: '+test);
 	//a ws server that just echos back all messages...
-	var echo=(new ws.Server({
+	var echo=(new EchoServer({
 		port: config.echo
 	},function(){
 		
@@ -136,48 +140,9 @@ function EchoTest(AutoConnectProxy, BridgeProxy,  config, callbackFn){
 
 
 
-	})).on('connection', function(wsclient){
-
-		wsclient.on('message',function(message){
-			wsclient.send(message);
-			//console.log('endpoint echos: '+message);
-		})
-
-	});
-
-
-
+	}));
 }
 
-//helper
-function logAutoconnectProxy(acp){
-	console.log('adding logger');
-	acp.on('source.connect',function(source){
-	
-		source.on('open',function(){
-			console.log('autoconnect created proxy: there are '+acp.connectionPoolCount()+' ready sockets');
-		}).on('message', function message(data, flags) {
-			console.log('autoconnect proxy source sends: '+(typeof data));
-		}).on('close',function(code, message){
-			console.log('autoconnect proxy source close: '+code+' '+message);
-		}).on('error',function(error){
-			console.log('autoconnect proxy source error: '+error);
-		});
-		
-		
-	}).on('destination.connect',function(destination){
-		
-		destination.on('message', function message(data, flags) {
-			console.log('autoconnect proxy destination sends: '+(typeof data));
-		}).on('error',function(error){
-			console.error('autoconnect proxy destination error: '+error+' | '+(typeof error));
-		}).on('close',function(code, message){
-			console.log('autoconnect proxy destination close: '+code+' '+message);
-		});
-		
-	});
-	
-}
 
 module.exports=EchoTest;
 
