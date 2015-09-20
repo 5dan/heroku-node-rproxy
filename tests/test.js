@@ -11,7 +11,7 @@ var series=require("async").series(
 		[
 function(callback){
 	//test direct load
-	EchoTest(require('node-rproxy').AutoConnect, require('node-rproxy').Bridge, {echo:9001, bridge:9002, count:20, eachClient:function(client, i){
+	EchoTest({echo:9001, bridge:9002, count:20, eachClient:function(client, i){
 		client.on('message',function(m){
 			console.log('test 0, client '+i+' success');
 		});
