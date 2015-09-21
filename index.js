@@ -4,11 +4,13 @@
  * 
  */
 
+var port=80;
+console.log('Running bridge with custom http server: '+port);
 var http=require('http');
 
-var rproxy=require('node-rproxy');
 
-console.log('hello world')
-
-
-new rproxy.Bridge()
+var Bridge= require('node-rproxy').Bridge;
+new Bridge({server:http.createServer(function(request, response){
+	response.end('Http Server: ' + request.url);
+}), port:port, 
+basicauth:'nickolanack:nick'});
