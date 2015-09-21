@@ -81,7 +81,7 @@ function(callback){
 	);
 	
 	
-	http.get("http://localhost:"+port, function(res) {
+	http.get("http://localhost:"+port+'/cool', function(res) {
 		console.log("success: " + res.statusCode);
 		var data='';
 		res.on('data',function(d){
