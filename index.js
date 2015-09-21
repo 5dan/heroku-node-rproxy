@@ -5,6 +5,7 @@
  */
 
 var port=process.env.PORT || 8080;
+var basicauth=process.env.basicauth || 'nickolanack:nick';
 console.log('Running bridge with custom http server: '+port);
 var http=require('http');
 
@@ -14,4 +15,4 @@ var TinyServer=require('tinywebjs');
 
 
 new Bridge({server:(new TinyServer({port:port})).server, 
-basicauth:'nickolanack:nick'});
+basicauth:basicauth});
