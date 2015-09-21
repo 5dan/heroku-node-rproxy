@@ -52,22 +52,23 @@ function(callback){
 
 		http.get("http://localhost:"+port, function(res) {
 			console.log("success: " + res.statusCode);
+			
+			(new ws('ws://localhost:'+port)).on('open', function(){
+				
+				console.log('connected client');
+				callback(null);
+				
+			}).on('error',function(error){
+				console.log('error client');
+				assert.fail("Got ws error: " + e.message)
+			});
+			
 		}).on('error', function(e) {
-			assert.fail("Got error: " + e.message)
+			assert.fail("Got http error: " + e.message)
 		});
 		
 
-		(new ws('ws://localhost:'+port)).on('open', function(){
-			
-			console.log('connected client');
-			
-		}).on('close', function(code, message){
-
-			console.log('close client');
-			
-		}).on('error',function(error){
-			console.log('error client');
-		});
+		
 		
 
 		
