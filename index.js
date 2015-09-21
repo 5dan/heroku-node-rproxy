@@ -4,7 +4,7 @@
  * 
  */
 
-var port=80;
+var port=process.env.PORT || 80;
 console.log('Running bridge with custom http server: '+port);
 var http=require('http');
 
