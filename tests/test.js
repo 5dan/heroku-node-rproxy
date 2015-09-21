@@ -6,6 +6,7 @@ assert.equal(true, true);
 var EchoTest=require('./echo.js');
 
 var ws=require('ws');
+var http=require('http');
 
 var series=require("async").series(
 		[
@@ -30,7 +31,7 @@ function(callback){
 	
 	var port=9003
 	console.log('Running bridge with custom http server: '+port);
-	var http=require('http');
+	
 	var server = http.createServer(function(request, response){
 		response.end('Http Server: ' + request.url);
 	});
