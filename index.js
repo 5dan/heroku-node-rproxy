@@ -18,10 +18,7 @@ var data={};
 
 var bridge=new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'}).addHandler('count',function(request, response){
 	
-	
 	response.end(JSON.stringify(data));
-	
-	
 	
 })).server, 
 basicauth:basicauth});
