@@ -13,7 +13,7 @@ if(process.argv&&process.argv.length==3){
 	
 	throw Error('Expect cmd line arg, ws://user:pass@heroku-app.com')
 }
-
+var bridge=''
 var weburl='http://'+bridge.substring(bridge.indexOf('@')+1);
 var wsclienturl='ws://'+bridge.substring(bridge.indexOf('@')+1);
 var echoport=9004;
