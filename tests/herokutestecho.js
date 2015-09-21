@@ -27,7 +27,6 @@ console.log('todo: connect some clients at: '+wsclienturl);
 var assert=require('assert');
 var rproxy=require('node-rproxy');
 var http=require('http');
-var WS=require('ws');
 
 var AutoConnectProxy=rproxy.AutoConnect;
 var BridgeProxy=rproxy.Bridge;
@@ -43,28 +42,13 @@ http.get(weburl, function(res) {
 		//and log everything
 		rproxy.util.logAutoconnectProxy(autoconnect);
 		
+		
 	}));
 	
 	
 
 	
 
-
-	(new WS(wsclienturl)).on('open', function(){
-		var client=this;
-		console.log('connected client');
-		client.on('message',function(msg){
-			
-			console.log('recieved: '+msg);
-		
-		});
-		client.send('hello world');
-		
-
-	}).on('error',function(e){
-		console.log('error client');
-		assert.fail('Got ws error: ' + e.message)
-	});
 
 }).on('error', function(e) {
 	assert.fail('Got http error: ' + e.message+' for: '+wsclienturl);

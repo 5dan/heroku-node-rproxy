@@ -37,6 +37,12 @@ bridge.on('server.connect',function(){
 }).on('client.connect',function(){
 	clients++;
 	updateData();
+}).on('server.close',function(){
+	servers--;
+	updateData();
+}).on('client.close',function(){
+	clients--;
+	updateData();
 }).on('pair',function(){
 	clients--;
 	servers--;
