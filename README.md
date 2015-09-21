@@ -1,6 +1,6 @@
 # heroku-node-rproxy
 
-[![Build Status](https://travis-ci.org/nickolanack/heroku-node-rproxy.svg?branch=master)](https://travis-ci.org/nickolanack/heroku-node-rproxy)]
+[![Build Status](https://travis-ci.org/nickolanack/heroku-node-rproxy.svg?branch=master)](https://travis-ci.org/nickolanack/heroku-node-rproxy)
 
 this is going to be a web-socket proxy app with an html interface for configuration (possibly)
 
