@@ -10,7 +10,8 @@ var http=require('http');
 
 
 var Bridge= require('node-rproxy').Bridge;
-new Bridge({server:http.createServer(function(request, response){
-	response.end('Http Server: ' + request.url);
-}), port:port, 
+var TinyServer=require('tinywebjs');
+
+
+new Bridge({server:(new TinyServer({port:port})).server), 
 basicauth:'nickolanack:nick'});
