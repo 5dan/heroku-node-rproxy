@@ -66,12 +66,6 @@ function(callback){
 		}).on('error', function(e) {
 			assert.fail("Got http error: " + e.message)
 		});
-		
-
-		
-		
-
-		
 
 	});
 
