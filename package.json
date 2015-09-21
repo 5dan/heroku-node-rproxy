@@ -22,7 +22,7 @@
   },
   "dependencies":{
     "node-rproxy":"git://github.com/nickolanack/node-rproxy.git#master",
-    "tinywebjs":"git://github.com/nickolanack/tinywebjs.git#master"
+    "tinywebjs":"git://github.com/nickolanack/tinywebjs.git#master",
      "ws":"latest",
     "atob":"latest",
     "async":"latest"
