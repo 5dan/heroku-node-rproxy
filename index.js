@@ -31,6 +31,7 @@ var clients=0;
 var servers=0;
 var paired=0;
 var closed=0;
+var buffers=0;
 bridge.on('server.connect',function(){
 	servers++;
 	updateData();
@@ -52,6 +53,12 @@ bridge.on('server.connect',function(){
 	paired--;
 	closed++
 	updateData();
+}).on('buffer.create',function(){
+	buffers++;
+	updateData();
+}).on('buffer.close',function(){
+	buffers--;
+	updateData();
 });
 
 var updateData=function(){
@@ -61,5 +68,6 @@ var updateData=function(){
 		'waiting-client-conections':clients,
 		'active-bridges':paired,
 		'closed-bridges':closed,
+		'open-buffers':buffers
 	}
 }
