@@ -56,6 +56,7 @@ http.get(weburl, function(res) {
 		client.on('message',function(msg){
 			
 			console.log('recieved: '+msg);
+			assert.equals()
 		});
 		client.send('hello world');
 		

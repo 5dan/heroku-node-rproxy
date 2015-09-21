@@ -14,5 +14,12 @@ var Bridge= require('node-rproxy').Bridge;
 var TinyServer=require('tinywebjs');
 
 
-new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'})).server, 
+new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'}}).addHandler('count',function(request, response){
+	
+	
+	response.end('Cool It worked');
+	
+	
+	
+})).server, 
 basicauth:basicauth});
