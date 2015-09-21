@@ -6,7 +6,7 @@
 
 var port=process.env.PORT || 8080;
 var basicauth=process.env.basicauth || 'nickolanack:nick';
-console.log('Running bridge with custom http server: '+port);
+console.log('Running bridge with custom http server: '+port+', and '+basicauth+' for server connections');
 var http=require('http');
 
 
