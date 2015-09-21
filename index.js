@@ -17,7 +17,7 @@ var TinyServer=require('tinywebjs');
 new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'}}).addHandler('count',function(request, response){
 	
 	
-	response.end('Cool It worked');
+	response.end('Cool It worked!!');
 	
 	
 	
