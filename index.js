@@ -9,8 +9,8 @@ var basicauth=process.env.basicauth || 'nickolanack:nick';
 console.log('Running bridge with custom http server: '+port+', and '+basicauth+' for server connections');
 var http=require('http');
 
-
-var Bridge= require('node-rproxy').Bridge;
+var rproxy=require('node-rproxy');
+var Bridge= rproxy.Bridge;
 var TinyServer=require('tinywebjs');
 
 var data={};
@@ -25,6 +25,8 @@ var bridge=new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname
 	
 })).server, 
 basicauth:basicauth});
+
+rproxy.util.logBridgeProxy(bridge);
 
 
 

@@ -13,7 +13,7 @@ if(process.argv&&process.argv.length==3){
 	
 	throw Error('Expect cmd line arg, ws://user:pass@heroku-app.com')
 }
-var bridge=''
+
 var weburl='http://'+bridge.substring(bridge.indexOf('@')+1);
 var wsclienturl='ws://'+bridge.substring(bridge.indexOf('@')+1);
 var echoport=9004;
@@ -56,7 +56,7 @@ http.get(weburl, function(res) {
 		client.on('message',function(msg){
 			
 			console.log('recieved: '+msg);
-			assert.equals()
+		
 		});
 		client.send('hello world');
 		
@@ -67,5 +67,5 @@ http.get(weburl, function(res) {
 	});
 
 }).on('error', function(e) {
-	assert.fail('Got http error: ' + e.message)
+	assert.fail('Got http error: ' + e.message+' for: '+wsclienturl);
 });
