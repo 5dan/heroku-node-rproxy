@@ -7,6 +7,7 @@ var EchoTest=require('./echo.js');
 
 var ws=require('ws');
 var http=require('http');
+var rproxy=require('node-rproxy')
 
 var series=require("async").series(
 		[
@@ -36,7 +37,8 @@ function(callback){
 		response.end('Http Server: ' + request.url);
 	});
 
-	var Bridge= require('node-rproxy').Bridge;
+
+	var Bridge= rproxy.Bridge;
 	new Bridge({server:server},function(){
 		console.log('hello world server: http+ws');	
 		server.close();
@@ -110,7 +112,7 @@ function(callback){
 	var http=require('http');
 
 
-	var Bridge= require('node-rproxy').Bridge;
+	var Bridge= rproxy.Bridge;
 	var TinyServer=require('tinywebjs');
 
 
@@ -135,7 +137,7 @@ function(callback){
 	console.log('todo: connect some clients at: '+wsclienturl);
 
 	var assert=require('assert');
-	var rproxy=require('node-rproxy');
+
 	var http=require('http');
 	var WS=require('ws');
 
