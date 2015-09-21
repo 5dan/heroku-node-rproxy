@@ -61,7 +61,7 @@ http.get(weburl, function(res) {
 		client.send('hello world');
 		
 
-	}).on('error',function(error){
+	}).on('error',function(e){
 		console.log('error client');
 		assert.fail('Got ws error: ' + e.message)
 	});

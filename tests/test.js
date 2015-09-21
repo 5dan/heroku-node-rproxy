@@ -59,7 +59,7 @@ function(callback){
 				console.log('connected client');
 				callback(null);
 
-			}).on('error',function(error){
+			}).on('error',function(e){
 				console.log('error client');
 				assert.fail("Got ws error: " + e.message)
 			});
@@ -114,12 +114,13 @@ function(callback){
 	var TinyServer=require('tinywebjs');
 
 
-	new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'}).addHandler('count',function(request, response){
+	var bridge=new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'}).addHandler('count',function(request, response){
 		response.end('Cool It worked!!');
 	})).server, 
 	basicauth:basicauth});
 	
-	
+	rproxy.util.logBridgeProxy(bridge);
+
 	
 
 	var bridge='ws://nickolanack:nick@localhost:8089'
