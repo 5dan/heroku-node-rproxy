@@ -74,9 +74,9 @@ function(callback){
 
 function(callback){
 	
-	
+	var port=9007
 	var TinyWeb=require('tinywebjs');
-	(new TinyWeb(port:9007)).addHandler('cool',function(req, res){ }
+	(new TinyWeb({port:port})).addHandler('cool',function(req, res){ }
 		res.end('success');
 	);
 	
