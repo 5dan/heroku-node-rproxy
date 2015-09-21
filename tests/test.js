@@ -20,7 +20,8 @@ function(callback){
 	}}, function(err, message){
 
 		if(err){	
-			assert.fail(err);
+	
+			 assert.fail(err.message||err);
 		}
 
 		callback(null);
