@@ -69,6 +69,35 @@ function(callback){
 
 	});
 
+},
+
+
+function(callback){
+	
+	
+	var TinyWeb=require('tinywebjs');
+	(new TinyWeb(port:9007)).addHandler('cool',function(req, res){ }
+		res.end('success');
+	);
+	
+	
+	http.get("http://localhost:"+port, function(res) {
+		console.log("success: " + res.statusCode);
+		var data='';
+		res.on('data',function(d){
+			data+=d;
+		}).on('end',function(){
+			
+			assert.equals(data, 'success');
+			callback(null);
+			
+		});
+		
+		
+	}).on('error', function(e) {
+		assert.fail("Got http error: " + e.message)
+	});
+
 }
 
 ],
