@@ -2,13 +2,18 @@
 
 [![Build Status](https://travis-ci.org/nickolanack/heroku-node-rproxy.svg?branch=master)](https://travis-ci.org/nickolanack/heroku-node-rproxy)
 
-this is going to be a web-socket proxy app with an html interface for configuration (possibly)
 
-This is a proof of concept, I want some apps to be able to tunnel in and out of private networks using a service such as heroku as a proxy server. however only 80, and 433 are open on heroku so this is an attempt to make that work...
+This is (still) a proof of concept, I want some apps to be able to tunnel in and out of private networks using a service such as heroku as a proxy server. however only 80, and 433 are open on heroku so this is an attempt to make that work...
 
 although this project is meant to work on heroku, it should work on any public server with nodejs and npm installed. 
+the server uses environment variables from heroku, or from command line.
 
-the server uses environment variables from heroku, or from command like like so.
+btw: heroku 
+
+
+
+A quick start to getting the server (bridgeproxy) running locally
+
 ```bash
 
 #run the server http+ws
@@ -22,7 +27,14 @@ is considered a server connection your app should provide plenty of these, and c
 to the server as they are consumed. (ie: autoconnectproxy.js form node-rproxy)
 
 
+A practical example...
+
 #how to ssh into an unreachable computer
+
+heroku times out any connection that is idle for 30 seconds. right now that will affect this example. 
+although it is an easy fix, I am going to leave that out of this example for now becuase heroku free 
+apps must sleep for at least 6 hours a day, and some thought needs to go into ensuring that it does
+allow for that
 
 Assuming that you can at least physically log into the computer to initiate this application,
 this example shows how to provide public ssh access to any computer in a private network, using heroku as a proxy!
