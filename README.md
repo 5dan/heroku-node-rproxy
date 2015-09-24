@@ -52,8 +52,8 @@ It is assumed that this computer is in a private network or otherwise unreachabl
 
 ```bash
 
-git clone https://github.com/nickolanack/node-rproxy.git 
-cd node-rproxy
+git clone https://github.com/nickolanack/heroku-node-rproxy.git 
+cd heroku-node-rproxy
 npm install
 node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com # make sure to replace app name from heroku and the username password 
 
@@ -69,8 +69,12 @@ here is how to set up a remote computer to ssh over ws
 remote computer
 ```bash
 
-git clone https://github.com/nickolanack/node-rproxy.git 
-cd node-rproxy
+# skip this if you set up heroku here already.
+git clone https://github.com/nickolanack/heroku-node-rproxy.git 
+cd heroku-node-rproxy
+
+# but do this (need it's dependencies)
+
 npm install
 node examples/sshclient.js ws://still-sea-5733.herokuapp.com
 
