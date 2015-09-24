@@ -47,7 +47,8 @@ run the following from anywhere node, npm and the heroku toolchain is installed
 git clone https://github.com/nickolanack/heroku-node-rproxy.git
 cd heroku-node-rproxy
 heroku create # should respond with some app name, ie: still-sea-5733 use this later
-heroku config:set basicauth=joesmith:password # set the username password you want this should be used later
+heroku config:set basicauth=joesmith:password 
+  # set the username password you want this should be used later
 git push heroku master
 
 ```
@@ -67,7 +68,8 @@ It is assumed that this computer is in a private network or otherwise unreachabl
 git clone https://github.com/nickolanack/heroku-node-rproxy.git 
 cd heroku-node-rproxy
 npm install
-node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com # make sure to replace app name from heroku and the username password 
+node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com 
+  # make sure to replace app name from heroku and the username password 
 
 # you probably want to run this in the background: 
 # node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com > /dev/null 2>&1 &
