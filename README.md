@@ -22,43 +22,48 @@ is considered a server connection your app should provide plenty of these, and c
 to the server as they are consumed. (ie: autoconnectproxy.js form node-rproxy)
 
 
-#ssh example with heroku
+#how to ssh into an unreachable computer
 
-this example show create public ssh access to a computer in a private network, using heroku as a proxy!
+Assuming that you can at least physically log into the computer to initiate this application,
+this example shows how to provide public ssh access to any computer in a private network, using heroku as a proxy!
 
+##get bridgeproxy running on heroku
+
+run the following from anywhere node, npm and the heroku toolchain is installed
 ```bash
 
 git clone https://github.com/nickolanack/heroku-node-rproxy.git
 cd heroku-node-rproxy
-heroku create # should respond with some app name, ie: still-sea-5733
-heroku config:set basicauth=joesmith:password # set the username password you want
+heroku create # should respond with some app name, ie: still-sea-5733 use this later
+heroku config:set basicauth=joesmith:password # set the username password you want this should be used later
 git push heroku master
 
 ```
 
-great the heroku app should be running a web app with websockets. node-rproxy bridgeproxy will be ready to connect clients on port 80 or 443
-you can visit the site at https://still-sea-5733.heroku.app.com (replace still-sea-5733 witht he app name given by heroku)
+Great the heroku app should be running a web app with websockets. node-rproxy bridgeproxy will be ready to connect clients on port 80 or 443
+you can visit the site at https://still-sea-5733.heroku.app.com (replace still-sea-5733 with he app name given by heroku)
 
-set up the computer you want to access with ssh
+##get tcpautoconnectproxy running on a private computer 
+
+Obviously you need to have access to the private computer, if you don't then maybe you should not be doing this in the
+first place!!! 
+
+It is assumed that this computer is in a private network or otherwise unreachable, becuase why else would you need this.
 
 ```bash
 
 git clone https://github.com/nickolanack/node-rproxy.git 
 cd node-rproxy
 npm install
+node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com # make sure to replace app name from heroku and the username password 
+
+# you probably want to run this in the background: 
+# node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com > /dev/null 2>&1 &
 
 ```
 
-I would just run the following within a node interactive session or put in a file but this must be left running
-```js
-
-var rproxy=require('node-rproxy');
-var TCPAutoConnect=rproxy.TCPAutoConnect;
-new TCPAutoConnect({source:'ws://joesmith:password@still-sea-5733.herokuapp.com', destination:22});
-
-```
-ok the app should no be routing connections to the computer @ port 22
-to connect a terminal from some other location you will need a tcp to ws wrapper (node-rproxy provides one...)
+OK heroku should be passing new connections back to that computer as they are recieved, and they should end up at port 22
+to connect a terminal from some other location you will need a tcp to ws wrapper (node-rproxy provides one also)
 
 here is how to set up a remote computer to ssh over ws
 remote computer
@@ -67,21 +72,13 @@ remote computer
 git clone https://github.com/nickolanack/node-rproxy.git 
 cd node-rproxy
 npm install
+node examples/sshclient.js ws://still-sea-5733.herokuapp.com
 
-```
-
-```js
-var rproxy=require('../');
-
-var TCPWSProxy=rproxy.TCPWSProxy;
-var tcp=new TCPWSProxy({source:9104, destination:'ws://still-sea-5733.herokuapp.com'},function(){				 
-		console.log('Ok, everything looks good, try to run: ssh user@localhost -p 9104');
-	});
-
-```
-
-```bash
+# you probably want to run this in the background: 
+# node node examples/sshclient.js ws://still-sea-5733.herokuapp.com > /dev/null 2>&1 &
 
 ssh user@localhost -p 9104
 
 ```
+
+that works for me...
