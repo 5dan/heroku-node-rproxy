@@ -93,7 +93,7 @@ npm install
 node examples/tcpclient.js ws://still-sea-5733.herokuapp.com 9104
 
 # you probably want to run this in the background: 
-# node node examples/tcpclient.js ws://still-sea-5733.herokuapp.com > 9104 /dev/null 2>&1 &
+# node examples/tcpclient.js ws://still-sea-5733.herokuapp.com > 9104 /dev/null 2>&1 &
 
 ssh user@localhost -p 9104
 
