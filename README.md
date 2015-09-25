@@ -68,7 +68,7 @@ It is assumed that this computer is in a private network or otherwise unreachabl
 git clone https://github.com/nickolanack/heroku-node-rproxy.git 
 cd heroku-node-rproxy
 npm install
-node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com 
+node examples/tcpme.js ws://joesmith:password@still-sea-5733.herokuapp.com 22
   # make sure to replace app name from heroku and the username password 
 
 # you probably want to run this in the background: 
@@ -90,7 +90,7 @@ cd heroku-node-rproxy
 # but do this (need it's dependencies)
 
 npm install
-node examples/sshclient.js ws://still-sea-5733.herokuapp.com
+node examples/tcpclient.js ws://still-sea-5733.herokuapp.com 9104
 
 # you probably want to run this in the background: 
 # node node examples/tcpclient.js ws://still-sea-5733.herokuapp.com > 9104 /dev/null 2>&1 &
