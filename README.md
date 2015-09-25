@@ -72,7 +72,7 @@ node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com
   # make sure to replace app name from heroku and the username password 
 
 # you probably want to run this in the background: 
-# node examples/sshme.js ws://joesmith:password@still-sea-5733.herokuapp.com > /dev/null 2>&1 &
+# node examples/tcpme.js ws://joesmith:password@still-sea-5733.herokuapp.com 22 > /dev/null 2>&1 &
 
 ```
 
@@ -93,7 +93,7 @@ npm install
 node examples/sshclient.js ws://still-sea-5733.herokuapp.com
 
 # you probably want to run this in the background: 
-# node node examples/sshclient.js ws://still-sea-5733.herokuapp.com > /dev/null 2>&1 &
+# node node examples/tcpclient.js ws://still-sea-5733.herokuapp.com > 9104 /dev/null 2>&1 &
 
 ssh user@localhost -p 9104
 
