@@ -70,7 +70,10 @@ bridge.on('server.connect', function(ws) {
 	getDomain(ws);
 
 	updateData();
-}).on('client.connect', function() {
+}).on('client.connect', function(ws) {
+
+	getDomain(ws);
+
 	clients++;
 	updateData();
 }).on('server.close', function() {
