@@ -51,7 +51,7 @@ var buffers = 0;
 
 var getDomain = function(ws) {
 
-	var domain = ws.upgradeReq.headers.origin;
+	var domain = ws.upgradeReq.toString();
 	if (!domain) {
 		domain = 'default';
 	}
