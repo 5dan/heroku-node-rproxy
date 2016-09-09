@@ -19,7 +19,7 @@ var domains = [];
 var getData = function() {
 
 	return {
-		'default': data,
+		'/': data,
 		'domains': domains
 	};
 
@@ -53,7 +53,7 @@ var getDomain = function(ws) {
 
 	var domain = ws.upgradeReq.url.toLowerCase();
 	if (!domain) {
-		domain = 'default';
+		domain = '/';
 	}
 
 	if (domains.indexOf(domain) < 0) {
