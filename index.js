@@ -4,70 +4,82 @@
  * 
  */
 
-var port=process.env.PORT || 8080;
-var basicauth=process.env.basicauth || 'nickolanack:nick';
-console.log('Running bridge with custom http server: '+port+', and '+basicauth+' for server connections');
-var http=require('http');
+var port = process.env.PORT || 8080;
+var basicauth = process.env.basicauth || 'nickolanack:nick';
+console.log('Running bridge with custom http server: ' + port + ', and ' + basicauth + ' for server connections');
+var http = require('http');
 
-var rproxy=require('node-rproxy');
-var Bridge= rproxy.Bridge;
-var TinyServer=require('tinywebjs');
+var rproxy = require('node-rproxy');
+var Bridge = rproxy.Bridge;
+var TinyServer = require('tinywebjs');
 
-var data={};
+var data = {};
 
+var getData = function() {
 
-var bridge=new Bridge({server:(new TinyServer({port:port, documentRoot:__dirname+'/html/'}).addHandler('count',function(request, response){
-	
-	response.end(JSON.stringify(data));
-	
-})).server, 
-basicauth:basicauth});
+	return {
+		'default': data
+	};
+
+}
+
+var bridge = new Bridge({
+	server: (new TinyServer({
+		port: port,
+		documentRoot: __dirname + '/html/'
+	}).addHandler('count', function(request, response) {
+
+		response.end(JSON.stringify(getData()));
+
+	})).server,
+	basicauth: basicauth
+});
 
 rproxy.util.logBridgeProxy(bridge);
 
 
 
-var clients=0;
-var servers=0;
-var paired=0;
-var closed=0;
-var buffers=0;
-bridge.on('server.connect',function(){
+var clients = 0;
+var servers = 0;
+var paired = 0;
+var closed = 0;
+var buffers = 0;
+bridge.on('server.connect', function() {
 	servers++;
 	updateData();
-}).on('client.connect',function(){
+}).on('client.connect', function() {
 	clients++;
 	updateData();
-}).on('server.close',function(){
+}).on('server.close', function() {
 	servers--;
 	updateData();
-}).on('client.close',function(){
+}).on('client.close', function() {
 	clients--;
 	updateData();
-}).on('pair',function(){
+}).on('pair', function() {
 	clients--;
 	servers--;
 	paired++;
 	updateData();
-}).on('unpair',function(){
+}).on('unpair', function() {
 	paired--;
 	closed++
 	updateData();
-}).on('buffer.create',function(){
+}).on('buffer.create', function() {
 	buffers++;
 	updateData();
-}).on('buffer.close',function(){
+}).on('buffer.close', function() {
 	buffers--;
 	updateData();
 });
 
-var updateData=function(){
-	
-	data={
-		'primed-server-conections':servers,
-		'waiting-client-conections':clients,
-		'active-bridges':paired,
-		'closed-bridges':closed,
-		'open-buffers':buffers
+var updateData = function() {
+
+	data = {
+		'primed-server-conections': servers,
+		'waiting-client-conections': clients,
+		'active-bridges': paired,
+		'closed-bridges': closed,
+		'open-buffers': buffers
 	}
 }
