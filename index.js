@@ -14,11 +14,13 @@ var Bridge = rproxy.Bridge;
 var TinyServer = require('tinywebjs');
 
 var data = {};
+var domains = [];
 
 var getData = function() {
 
 	return {
-		'default': data
+		'default': data,
+		'domains': domains
 	};
 
 }
@@ -44,8 +46,29 @@ var servers = 0;
 var paired = 0;
 var closed = 0;
 var buffers = 0;
-bridge.on('server.connect', function() {
+
+
+
+var getDomain = function(ws) {
+
+	var domain = ws.upgradeReq.headers.origin;
+	if (!domain) {
+		domain = 'default';
+	}
+
+	if (domains.indexOf(domain) < 0) {
+		domains.push(domain);
+	}
+
+	return domain;
+
+}
+
+bridge.on('server.connect', function(ws) {
 	servers++;
+
+	getDomain(ws);
+
 	updateData();
 }).on('client.connect', function() {
 	clients++;
