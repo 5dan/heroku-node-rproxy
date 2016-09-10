@@ -19,7 +19,7 @@ var domains = [];
 var getData = function() {
 
 	return {
-		'/': data,
+		'stats': data,
 		'domains': domains
 	};
 
