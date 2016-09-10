@@ -71,18 +71,6 @@ var addDomain = function(ws) {
 
 }
 
-var removeDomain = function(ws) {
-
-	var domain = getDomain(ws)
-	var i = domains.indexOf(domain);
-	if (i >= 0) {
-		domains.splice(i, 1);
-	}
-
-	return domain;
-
-}
-
 bridge.on('server.connect', function(ws) {
 	servers++;
 
@@ -91,14 +79,13 @@ bridge.on('server.connect', function(ws) {
 	updateData();
 }).on('client.connect', function(ws) {
 
-	getDomain(ws);
 
 	clients++;
 	updateData();
 }).on('server.close', function(ws) {
 
 
-	removeDomain(ws);
+	//removeDomain(ws);
 
 	servers--;
 	updateData();
