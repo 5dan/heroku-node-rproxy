@@ -37,7 +37,7 @@ var bridge = new Bridge({
 	basicauth: basicauth
 });
 
-rproxy.util.logBridgeProxy(bridge);
+//rproxy.util.logBridgeProxy(bridge);
 
 
 
@@ -55,6 +55,13 @@ var getDomain = function(ws) {
 	if (!domain) {
 		domain = '/';
 	}
+	return domain;
+
+}
+
+var addDomain = function(ws) {
+
+	var domain = getDomain(ws)
 
 	if (domains.indexOf(domain) < 0) {
 		domains.push(domain);
@@ -64,10 +71,22 @@ var getDomain = function(ws) {
 
 }
 
+var removeDomain = function(ws) {
+
+	var domain = getDomain(ws)
+	var i = domains.indexOf(domain);
+	if (i >= 0) {
+		domains.splice(i, 1);
+	}
+
+	return domain;
+
+}
+
 bridge.on('server.connect', function(ws) {
 	servers++;
 
-	getDomain(ws);
+	addDomain(ws, true);
 
 	updateData();
 }).on('client.connect', function(ws) {
@@ -76,17 +95,27 @@ bridge.on('server.connect', function(ws) {
 
 	clients++;
 	updateData();
-}).on('server.close', function() {
+}).on('server.close', function(ws) {
+
+
+	removeDomain(ws);
+
 	servers--;
 	updateData();
+
 }).on('client.close', function() {
 	clients--;
 	updateData();
-}).on('pair', function() {
+}).on('pair', function(server, client) {
 	clients--;
 	servers--;
 	paired++;
 	updateData();
+
+
+	console.log('server:' + getDomain(server));
+	console.log('client:' + getDomain(client));
+
 }).on('unpair', function() {
 	paired--;
 	closed++
