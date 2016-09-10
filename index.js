@@ -1,5 +1,5 @@
 /**
- * 
+ * Heroku app to manage websocket reverse proxy connections
  * 
  * 
  */
