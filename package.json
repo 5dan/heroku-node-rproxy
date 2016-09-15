@@ -25,6 +25,7 @@
     "tinywebjs":"git://github.com/nickolanack/tinywebjs.git#master",
      "ws":"latest",
     "atob":"latest",
-    "async":"latest"
+    "async":"latest",
+     "trim":"latest"
   }
 }

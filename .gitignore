@@ -1,1 +1,4 @@
+.cronlog
+.log
 /node_modules/
+.tcpmecommand.json
