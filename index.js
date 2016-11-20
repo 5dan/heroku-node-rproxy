@@ -31,7 +31,7 @@ var bridge = new Bridge({
 		documentRoot: __dirname + '/html/'
 	}).addHandler('count', function(request, response) {
 
-		response.end(JSON.stringify(getData()));
+		response.end('<pre>'+JSON.stringify(getData(),null, 4)+'</pre>');
 
 	})).server,
 	basicauth: basicauth
