@@ -11,7 +11,7 @@ var exec = require('child_process').exec;
 var trim = require('trim');
 var fs = require('fs');
 
-var cmd=null;
+var cmds=null;
 var running=null;
 
 
@@ -26,7 +26,7 @@ exec('echo $PATH', function(err, stdout, stderr){
 
 
 try{
-	cmd=require('./.tcpmecommand.json');
+	cmds=require('./.tcpmecommand.json');
 }catch(e){
 
 }
@@ -38,35 +38,68 @@ try{
 
 exec('ps -Af | grep \'examples/tcpme.js\' ', function(err, stdout, stderr){
 
-	//console.log(stdout);
+	/*console.log(stdout);*/
 	var lines=trim(stdout).split("\n").filter(function(l){return l.indexOf("grep")===-1});
 	if(lines.length){
-		console.log('Running');
-		running='node'+lines[0].split('node').pop();
-		console.log(running);
+		console.log('Running ('+lines.length+')');
 
-		if(!cmd){
-			console.log('Saved');
-			fs.writeFile('./.tcpmecommand.json', JSON.stringify([running]));
 
-		}
+		var nodecmds=[];
+		lines.forEach(function(line){
+			running='node'+line.split('node').pop();
+			console.log(running);
+			nodecmds.push(running);
 
-	}else{
-		console.log('Not Running!');
+		});
+		
 
-		if(cmd){
+		if(!(cmds&&cmds.length)){
 
-			console.log('Restarting: '+cmd[0]);
+			console.log('Wrote to keepalive file');
+			fs.writeFile('./.tcpmecommand.json', JSON.stringify(nodecmds));
 
-			exec(cmd[0]+' >.log 2>&1 &', function(err, stdout, stderr){
-			
-				console.log('ok');
-
-			});
+		}else{
 
 		}
 
 	}
+
+
+
+
+
+	if(cmds){
+
+		cmds.forEach(function(cmd){
+
+			var isRunning=false;
+			lines.forEach(function(line){
+
+				if(line.indexOf(cmd)>=0){
+					isRunning=true;
+				}
+
+			});
+
+			if(!isRunning){
+
+				console.log('Restarting: '+cmd);
+
+				exec(cmd+' >.log 2>&1 &', function(err, stdout, stderr){
+				
+					console.log('ok');
+
+				});
+			}
+
+
+		});
+
+		
+
+	}
+
+	
 
 
 });
