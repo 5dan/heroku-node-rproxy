@@ -5,6 +5,28 @@
  */
 
 
+/**
+ * How to use. 
+ *
+ * cron.js keeps track of running rpoxy processes. on first use, it checkes the running tasks and stores 
+ * the command to start/restart them is a json file. if cron.js is executed using a cron job, then every time it is run,
+ * it checks to make sure that a matching process is running for each of the stored commands and restarts them if necessary.
+ *
+ * to make this work start a number of endpoint tasks: ie:
+ * 
+ *    node examples/tcpme.js ws://user:pass@still-sea-5733.herokuapp.com/ssh 22 &
+ *    node examples/tcpme.js ws://user:pass@still-sea-5733.herokuapp.com/ftp 21 &
+ *    node examples/tcpme.js ws://user:pass@still-sea-5733.herokuapp.com/html 80 &
+ *
+ *    node cron.js 
+ *    # out >
+ *    # Running (3)
+ *	  # Wrote to keepalive file
+ *
+ * 
+ * 
+ */
+
 
 
 var exec = require('child_process').exec;
